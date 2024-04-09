@@ -1,0 +1,67 @@
+<div class="container">
+  <a routerLink="/offers" class="back-btn"><i class="fa-solid fa-arrow-left"></i>Back</a>
+  <div class="heading">
+    <h1>{{offerDetails?.brand}} {{offerDetails?.model}} {{offerDetails?.engine}}</h1>
+    <h2 class="price">{{offerDetails?.price}} лв.</h2>
+  </div>
+  <div class="offer-container">
+    <div class="offer-information">
+      <div class="media">
+        <img src={{offerDetails?.carImage}} alt="image" />
+      </div>
+
+      <h2 class="car-info-heading">Данни за автомобила</h2>
+
+      <div class="car-information">
+        <div class="left-side">
+          <p>Дата на производство</p>
+          <p>Тип Двигател</p>
+          <p>Мощност</p>
+          <p>Скоростна кутия</p>
+          <p>Категория</p>
+          <p>Пробег</p>
+          <p>Брой врати</p>
+          <p>Цвят</p>
+        </div>
+        <div class="right-side">
+          <p class="bold-info">{{offerDetails?.createdDate | elapsedTime}}</p>
+          <p class="bold-info">{{offerDetails?.fuelTypes}}</p>
+          <p class="bold-info">{{offerDetails?.horsepower}} к.с.</p>
+          <p class="bold-info">{{offerDetails?.gearboxTypes}}</p>
+          <p class="bold-info">{{offerDetails?.categoryTypes}}</p>
+          <p class="bold-info">{{offerDetails?.mileage}} км</p>
+          <p class="bold-info">{{offerDetails?.doorsTypes}}</p>
+          <p class="bold-info">{{offerDetails?.color}}</p>
+        </div>
+      </div>
+      <div class="description-container">
+        <h3>Допълнителна информация</h3>
+        <p>
+          {{offerDetails?.descriptionArea}}
+        </p>
+      </div>
+    </div>
+    <div class="owner-info">
+      <h2 class="user-type"><i class="fa-solid fa-user"></i>Частно лице</h2>
+      <p class="city"><i class="fa-solid fa-location-dot"></i>{{offerDetails?.location}}</p>
+      <h3 class="phone-number"><i class="fa-solid fa-mobile"></i>{{offerDetails?.phone}}</h3>
+      <div class="divider"></div>
+      <!-- IF USER ISN'T OWNER OF THE OFFER -->
+      <ng-container *ngIf="isLoggedIn && !isOwner">
+        <button (click)="favouriteOffer()" class="save-button" *ngIf="canFavourite">
+          <i class="fa-solid fa-bookmark save"></i>Save Offer
+        </button>
+      </ng-container>
+      <ng-container *ngIf="isLoggedIn && !isOwner">
+        <button (click)="unFavouriteOffer()" class="saved-button" *ngIf="!canFavourite">
+          <i class="fa-solid fa-bookmark saved"></i>Offer Saved
+        </button>
+      </ng-container>
+      <!-- IF USER IS OWNER OF THE OFFER -->
+      <div class="owner-buttons" *ngIf="isOwner">
+        <button routerLink="editOffer" class="edit-btn"><i class="fa-solid fa-pen"></i>Edit</button>
+        <button class="delete-btn" (click)="deleteOffer()"><i class="fa-solid fa-trash-can"></i>Delete offer</button>
+      </div>
+    </div>
+  </div>
+</div>

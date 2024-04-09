@@ -1,0 +1,289 @@
+<div class="container">
+  <div class="heading">
+    <h1>ADD AN OFFER</h1>
+    <div class="divider"></div>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="createOffer()">
+    <div class="input-row">
+      <label for="brand">Make</label>
+      <input
+        type="text"
+        name="brand"
+        id="brand"
+        placeholder="Audi..."
+        formControlName="brand"
+      />
+      <!-- ERRORS -->
+      <ng-container>
+        <div class="errors" *ngIf="form.get('brand')?.touched">
+          <p *ngIf="form.get('brand')?.errors?.['required']">
+            Brand is required
+          </p>
+          <p
+            *ngIf="form.get('brand')?.errors?.['minlength']?.['requiredLength']"
+          >
+            Brand length should be at least 2
+          </p>
+        </div>
+      </ng-container>
+    </div>
+    <div class="input-row">
+      <label for="model">Model</label>
+      <input
+        type="text"
+        name="model"
+        id="model"
+        placeholder="RS6, R8"
+        formControlName="model"
+      />
+      <!-- ERRORS -->
+      <ng-container>
+        <div class="errors" *ngIf="form.get('model')?.touched">
+          <p *ngIf="form.get('model')?.errors?.['required']">
+            Model is required
+          </p>
+          <p
+            *ngIf="form.get('model')?.errors?.['minlength']?.['requiredLength']"
+          >
+            Model length should be at least 2
+          </p>
+        </div>
+      </ng-container>
+    </div>
+    <div class="input-row">
+      <label for="createdDate">Production Date</label>
+      <input
+        type="date"
+        name="createdDate"
+        id="createdDate"
+        formControlName="createdDate"
+      />
+      <!-- ERRORS -->
+      <ng-container>
+        <div class="errors" *ngIf="form.get('createdDate')?.touched">
+          <p *ngIf="form.get('createdDate')?.errors?.['required']">
+            Date is required
+          </p>
+          <p *ngIf="form.get('createdDate')?.errors?.['pattern']">
+            Number should start with 088/089
+          </p>
+        </div>
+      </ng-container>
+    </div>
+    <div class="input-row">
+      <label for="carImage">Photo</label>
+      <input
+        type="text"
+        name="carImage"
+        id="carImage"
+        placeholder="Paste image URL address..."
+        formControlName="carImage"
+      />
+      <!-- ERRORS -->
+      <ng-container>
+        <div class="errors" *ngIf="form.get('carImage')?.touched">
+          <p *ngIf="form.get('carImage')?.errors?.['required']">
+            Image is required
+          </p>
+        </div>
+      </ng-container>
+    </div>
+    <div class="input-row">
+      <label for="engine">Engine</label>
+      <input
+        type="text"
+        name="engine"
+        id="engine"
+        placeholder="1.9TDI, 4.2"
+        formControlName="engine"
+      />
+      <!-- ERRORS -->
+      <ng-container>
+        <div class="errors" *ngIf="form.get('engine')?.touched">
+          <p *ngIf="form.get('engine')?.errors?.['required']">
+            Engine is required
+          </p>
+        </div>
+      </ng-container>
+    </div>
+    <div class="input-row">
+      <label for="price">Price</label>
+      <input type="number" name="price" id="price" formControlName="price" />
+      <!-- ERRORS -->
+      <ng-container>
+        <div class="errors" *ngIf="form.get('price')?.touched">
+          <p *ngIf="form.get('price')?.errors?.['required']">
+            Price is required
+          </p>
+          <p *ngIf="form.get('price')?.errors?.['min']">
+            Price should be more than 0
+          </p>
+        </div>
+      </ng-container>
+    </div>
+    <div class="input-row">
+      <label for="horsepower">Horse power</label>
+      <input
+        type="number"
+        name="horsepower"
+        id="horsepower"
+        placeholder="Hp..."
+        formControlName="horsepower"
+      />
+      <!-- ERRORS -->
+      <ng-container>
+        <div class="errors" *ngIf="form.get('horsepower')?.touched">
+          <p *ngIf="form.get('horsepower')?.errors?.['required']">
+            Horsepower is required
+          </p>
+          <p *ngIf="form.get('horsepower')?.errors?.['min']">
+            Horsepower should be more than 0
+          </p>
+          <p *ngIf="form.get('horsepower')?.errors?.['maxlength']">
+            Horsepower should be max 4 numbers
+          </p>
+        </div>
+      </ng-container>
+    </div>
+    <div class="input-row">
+      <label for="mileage">Mileage</label>
+      <input
+        type="number"
+        name="mileage"
+        id="mileage"
+        placeholder="Mileage in km..."
+        formControlName="mileage"
+      />
+      <!-- ERRORS -->
+      <ng-container>
+        <div class="errors" *ngIf="form.get('mileage')?.touched">
+          <p *ngIf="form.get('mileage')?.errors?.['required']">
+            Mileage is required
+          </p>
+          <p *ngIf="form.get('mileage')?.errors?.['min']">
+            Mileage should be more than 0
+          </p>
+        </div>
+      </ng-container>
+    </div>
+    <div class="input-row">
+      <label for="location">Location</label>
+      <input
+        type="text"
+        name="location"
+        id="location"
+        placeholder="Plovdiv..."
+        formControlName="location"
+      />
+      <!-- ERRORS -->
+      <ng-container>
+        <div class="errors" *ngIf="form.get('location')?.touched">
+          <p *ngIf="form.get('location')?.errors?.['required']">
+            Location is required
+          </p>
+          <p
+            *ngIf="form.get('location')?.errors?.['minlength']?.['requiredLength']"
+          >
+            Location should be more than 2 characters
+          </p>
+        </div>
+      </ng-container>
+    </div>
+    <div class="input-row">
+      <label for="color">Color</label>
+      <input type="text" name="color" id="color" formControlName="color" />
+      <!-- ERRORS -->
+      <ng-container>
+        <div class="errors" *ngIf="form.get('color')?.touched">
+          <p *ngIf="form.get('color')?.errors?.['required']">
+            Color is required
+          </p>
+          <!-- <p>Color should be text</p> -->
+        </div>
+      </ng-container>
+    </div>
+    <div class="input-row" *ngIf="!isPhoneAdded">
+      <label for="phone">Phone</label>
+      <input type="tel" name="phone" id="phone" formControlName="phone" />
+      <!-- ERRORS -->
+      <ng-container>
+        <div class="errors" *ngIf="form.get('phone')?.touched">
+          <p *ngIf="form.get('phone')?.errors?.['required']">
+            Phone is required
+          </p>
+          <p *ngIf="form.get('phone')?.errors?.['pattern']">
+            Phone Number should start (087, 088, 089) and 10 numbers
+          </p>
+        </div>
+      </ng-container>
+    </div>
+    <div class="all-selects">
+      <div class="input-row">
+        <label for="fuel-type">Fuel</label>
+        <select name="fuelTypes" id="fuelTypes" formControlName="fuelTypes">
+          <option selected disabled></option>
+          <option value="Diesel">Diesel</option>
+          <option value="Gasoline">Gasoline</option>
+          <option value="Gas/Gasoline">Gas/Gasoline</option>
+          <option value="Hybrid">Hybrid</option>
+        </select>
+      </div>
+
+      <div class="input-row">
+        <label for="gearbox">Gearbox</label>
+        <select
+          name="gearboxTypes"
+          id="gearboxTypes"
+          formControlName="gearboxTypes"
+        >
+          <option selected disabled></option>
+          <option value="Manual">Manual</option>
+          <option value="Automatic">Automatic</option>
+        </select>
+      </div>
+      <div class="input-row">
+        <label for="category">Category</label>
+        <select
+          name="categoryTypes"
+          id="categoryTypes"
+          formControlName="categoryTypes"
+        >
+          <option selected disabled></option>
+          <option value="Sedan">Sedan</option>
+          <option value="Hatchback">Hatchback</option>
+          <option value="Coupe">Coupe</option>
+          <option value="Combi">Combi</option>
+          <option value="SUV">SUV</option>
+        </select>
+      </div>
+
+      <div class="input-row">
+        <label for="doors">Number of doors</label>
+        <select name="doorsTypes" id="doorsTypes" formControlName="doorsTypes">
+          <option selected disabled></option>
+          <option value="2/3">2/3</option>
+          <option value="4/5">4/5</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="description">
+      <h2>Description</h2>
+      <textarea
+        name="descriptionArea"
+        id="descriptionArea"
+        cols="42"
+        rows="15"
+        formControlName="descriptionArea"
+      ></textarea>
+    </div>
+
+    <!-- ERRORS -->
+    <div class="select-errors" *ngIf="isInvalid">
+      <p>All fields are required</p>
+    </div>
+
+    <button class="create-btn">Create</button>
+  </form>
+</div>

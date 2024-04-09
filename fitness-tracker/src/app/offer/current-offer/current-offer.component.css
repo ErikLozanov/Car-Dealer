@@ -1,0 +1,290 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.back-btn {
+    cursor: pointer;
+    align-self: flex-start;
+    margin: 2em 0 0 4em;
+    text-decoration: none;
+    color: #fff;
+    background-color: #262626;
+    padding: 0.8em 2em;
+    border-radius: 10px;
+}
+
+.back-btn i {
+    padding-right: 10px;
+}
+
+.container .heading {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    gap: 10em;
+}
+
+.heading .price {
+    padding: 10px;
+    border-radius: 15px;
+    color: #fff;
+    background-color: #262626;
+}
+
+.container .offer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5em;
+}
+
+.offer-container .media {
+    width: 850px;
+}
+
+.offer-container .media img {
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.4);
+    display: block;
+    width: 100%;
+    height: auto;
+
+}
+
+.offer-information .car-information {
+    margin: 10px 0;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    padding: 10px 10px;
+}
+
+.offer-information .car-information {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 18px;
+}
+
+.right-side .bold-info {
+    font-weight: bold;
+}
+
+.description-container {
+    margin: 1em 0 2em 0;
+}
+
+.description-container h3 {
+    padding: 5px 0 10px 0;
+}
+
+.description-container .divider {
+    margin: 10px 0;
+}
+
+.description-container p {
+    max-width: 45em;
+}
+
+.owner-info {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    border: 1px solid #262626;
+    padding: 1.5em 3em;
+    border-radius: 15px;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.3);
+}
+
+.owner-info i {
+    padding-right: 10px;
+}
+
+.owner-info .city i,
+.owner-info .phone-number i {
+    font-size: 30px;
+}
+
+.owner-info .phone-number {
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.owner-info .phone-number:hover {
+    background-color: #8dbe35;
+    padding: 10px;
+    color: #fff;
+}
+
+.phone-number i {
+    align-self: flex-start;
+}
+
+.divider {
+    border-top: 1px solid #262626;
+    margin: 10px 0;
+}
+
+.owner-info .save-button {
+    cursor: pointer;
+    padding: 10px 0;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    background-color: #262626;
+    color: #fff;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.owner-info .saved-button {
+    cursor: pointer;
+    padding: 10px 0;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    background-color: #262626;
+    color: #fff;
+    font-size: 20px;
+}
+
+.owner-info .saved-button i {
+    color: orange;
+}
+
+/* ACTIVATE AFTER CLICK */
+/* .owner-info .save-button .saved {
+    color: orange;
+} */
+
+.owner-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+}
+
+.owner-buttons .edit-btn {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: orangered;
+    border: 1px solid orangered;
+    outline: none;
+    font-size: 19px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.owner-buttons .edit-btn:hover {
+    border: 1px solid #000;
+    transform: scale(1.1);
+    color: #fff;
+}
+
+.owner-buttons .delete-btn {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: red;
+    border: 1px solid red;
+    outline: none;
+    font-size: 19px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.owner-buttons .delete-btn:hover {
+    border: 1px solid #000;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+@media (width < 600px) {
+
+    .back-btn {
+        margin: 1em 0 2em 1em;
+    }
+
+    .container {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .container .offer-container {
+        flex-direction: column;
+        width: 300px;
+    }
+
+    .container .heading {
+        flex-direction: column;
+        gap: 1em;
+        font-size: 25px;
+    }
+
+    .heading .price {
+        font-size: 25px;
+    }
+
+    .container .heading h1 {
+        font-size: 30px;
+    }
+
+    .offer-information {
+        width: 400px;
+    }
+
+    .offer-information .car-info-heading {
+        font-size: 25px;
+    }
+
+    .offer-information .bold-info {
+        font-size: 16px;
+    }
+
+    .offer-information .car-information .left-side p {
+        font-size: 16px;
+    }
+
+    .offer-information .media {
+        width: 400px;
+    }
+
+    .offer-information .media img {
+        width: 400px;
+        margin: 0 auto;
+    }
+
+    .offer-information .car-information {
+        width: 400px;
+        justify-content: space-between;
+    }
+
+    .offer-information .description-container {
+        width: 400px;
+    }
+
+    .offer-information p {
+        max-width: 23em;
+        margin: 0 auto;
+    }
+
+    .owner-info {
+        margin-bottom: 1em;
+        align-self: center;
+        width: 400px;
+    }
+
+    .owner-buttons button {
+        padding: 0.8em 1em;
+        width: 150px;
+    }
+
+    .owner-buttons .delete-btn {
+        width: 200px;
+    }
+}
