@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="search-bar">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" placeholder="Search car..." [(ngModel)]="filterText" />
+  </div>
+
+  <div class="offers-counter" *ngIf="filteredOffers.length === 0">
+    <p>No matches for {{filterText}}</p>
+  </div>
+
+  <div class="cards-container">
+    <div class="card" *ngFor="let offer of filteredOffers">
+      <a routerLink="{{offer._id}}">
+        <div class="media">
+          <img src="{{ offer.carImage }}" alt="" />
+          <div class="card-primary">
+            <h6 class="card-price">{{ offer.price }} лв.</h6>
+          </div>
+        </div>
+        <div class="card-heading">
+          <h5>{{offer.brand}} {{offer.model}} {{offer.engine}}</h5>
+        </div>
+        <div class="divider"></div>
+        <div class="typography">{{offer.createdDate | elapsedTime}} | {{offer.fuelTypes}} | {{offer.mileage}} км.</div>
+        <div class="card-info">
+          <p class="info-text">{{offer.descriptionArea}}</p>
+        </div>
+      </a>
+      <div class="card-footer">
+        <p>частно лице, {{offer.location}}</p>
+      </div>
+    </div>
+  </div>
+</div>
