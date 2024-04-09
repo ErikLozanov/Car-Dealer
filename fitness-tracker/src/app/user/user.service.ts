@@ -1,77 +1,113 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { UserForAuth } from '../types/user';
+import { Injectable } from '@angular/core';
+import {
+  Auth,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  updateProfile,
+} from '@angular/fire/auth';
+import { User } from '../types/user';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Subscription, tap } from 'rxjs';
+import { UserDB } from '../types/userDB';
+import { Database, push, ref, update } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService implements OnDestroy {
-  private user$$ = new BehaviorSubject<UserForAuth | undefined>(undefined);
-  private user$ = this.user$$.asObservable();
+export class UserService {
+  user: User | undefined;
+  userId: string = '';
+  USER_KEY = 'userData';
+  isUserAvailable: boolean = true;
+  USER_API_URL =
+    'https://secondride-angular-default-rtdb.europe-west1.firebasedatabase.app/users';
+  specificUserData: UserDB | any;
 
-  user: UserForAuth | undefined;
-  USER_KEY = '[user]';
-
-  userSubscription: Subscription;
-
-  get isLogged(): boolean {
-    return !!this.user;
+  constructor(
+    private auth: Auth,
+    private router: Router,
+    private httpClient: HttpClient,
+    private db: Database
+  ) {
+    try {
+      const lsUser = localStorage.getItem(this.USER_KEY) || '';
+      this.user = JSON.parse(lsUser);
+    } catch (err) {
+      this.user = undefined;
+    }
   }
 
-  constructor(private http: HttpClient) {
-    this.userSubscription = this.user$.subscribe((user) => {
-      this.user = user;
+  get isLogged(): boolean {
+    return !!localStorage.getItem(this.USER_KEY);
+  }
+
+  register(email: string, password: string, username: string, form: UserDB) {
+    createUserWithEmailAndPassword(this.auth, email, password)
+      .then((result) => {
+        const userCredential = result;
+        updateProfile(userCredential.user, { displayName: username });
+        localStorage.setItem(this.USER_KEY, JSON.stringify(result.user));
+        push(ref(this.db, 'users/'), {
+          _userId: userCredential.user.uid,
+          _id: form._id,
+          username: form.username,
+          fullName: form.fullName,
+          email: form.email,
+          phone: form.phone,
+          address: form.address,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  registerGoogleAccount(): void {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+    signInWithPopup(auth, provider).then((res) => {
+      console.log(res);
     });
   }
 
   login(email: string, password: string) {
-    return this.http
-      .post<UserForAuth>('/api/login', { email, password })
-      .pipe(tap((user) => this.user$$.next(user)));
-  }
-
-  register(
-    username: string,
-    email: string,
-    tel: string,
-    password: string,
-    rePassword: string
-  ) {
-    return this.http
-      .post<UserForAuth>('/api/register', {
-        username,
-        email,
-        tel,
-        password,
-        rePassword,
+    signInWithEmailAndPassword(this.auth, email, password)
+      .then((result) => {
+        localStorage.setItem(this.USER_KEY, JSON.stringify(result.user));
+        this.router.navigate(['/home']);
       })
-      .pipe(tap((user) => this.user$$.next(user)));
+      .catch((err) => {
+        console.log('Invalid Email or Password');
+        this.isUserAvailable = false;
+      });
   }
 
-  logout() {
-    return this.http
-      .post('/api/logout', {})
-      .pipe(tap(() => this.user$$.next(undefined)));
+  logout(): void {
+    this.auth.signOut();
+    localStorage.removeItem(this.USER_KEY);
   }
 
-  getProfile() {
-    return this.http
-      .get<UserForAuth>('/api/users/profile')
-      .pipe(tap((user) => this.user$$.next(user)));
+  getAllUsers(): Observable<UserDB[]> {
+    return this.httpClient.get<UserDB[]>(`${this.USER_API_URL}.json`)
   }
 
-  updateProfile(username: string, email: string, tel?: string) {
-    return this.http
-      .put<UserForAuth>('/api/users/profile', {
-        username,
-        email,
-        tel,
-      })
-      .pipe(tap((user) => this.user$$.next(user)));
+  editUserData(id: string, formData: UserDB) {
+    return update(ref(this.db, 'users/' + id), {
+      fullName: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+      address: formData.address,
+    });
   }
 
-  ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
+  getArrayValues(users: UserDB[], ids: string[]): UserDB[] {
+    for (let user of users) {
+      user._id = ids.shift();
+    }
+    return users;
   }
 }
